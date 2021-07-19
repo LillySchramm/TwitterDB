@@ -1,4 +1,6 @@
 crawler/venv/
 crawler/secret.py
 crawler/.idea/
+api/tools/secret.js
+api/node_modules/
 *.pyc
