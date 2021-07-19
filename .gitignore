@@ -1,0 +1,4 @@
+crawler/venv/
+crawler/secret.py
+crawler/.idea/
+*.pyc
