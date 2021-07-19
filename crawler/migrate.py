@@ -36,7 +36,7 @@ if __name__ == '__main__':
         secret.MONGODB_URI)
     db = mongoClient["TwitterDB"]
 
-    MAX_HOURS_BACK = 300 * 24
+    MAX_HOURS_BACK = 180 * 24
     now = datetime(2021,7,20)
 
     tags = {}
@@ -55,8 +55,7 @@ if __name__ == '__main__':
             res = MSQL_CURSOR.fetchall()
 
             for x in res:
-
-                name = x[1]
+                name = x[1].lower()
                 count = x[3]
 
                 if count >= 5:
@@ -79,7 +78,7 @@ if __name__ == '__main__':
 
             for x in res:
 
-                name = x[1]
+                name = x[1].lower()
                 count = x[3]
 
                 if count >= 5:

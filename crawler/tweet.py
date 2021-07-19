@@ -3,9 +3,8 @@ import emoji
 
 class Tweet():
     def __init__(self, text: str):
-        self.text = text
+        self.text = text.lower()
         self.tags = self.find("@", forbidden="#")
-        self.text = self.text.lower()
         self.hashtags = self.find("#", forbidden="@")
 
     def find(self, prefix, forbidden):
@@ -24,7 +23,7 @@ class Tweet():
                     word = word.strip()
 
                     if word not in ret and len(word) >= 2 and word.startswith(prefix):
-                        ret.append(word)
+                        ret.append(word.lower())
 
         return ret
 

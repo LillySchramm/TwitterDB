@@ -10,7 +10,8 @@ import time
 from tweet import Tweet
 from threading import Thread
 
-CUR_TIMESTAMP = 0
+now = datetime.datetime.now()
+CUR_TIMESTAMP = int(datetime.datetime(year=now.year, month=now.month, day=now.day, hour=now.hour).timestamp())
 
 TOTAL_TAGS = 0
 TOTAL_HASHTAGS = 0
@@ -110,6 +111,7 @@ def updateTimestamp():
 
     if old_timestamp != _CUR_TIMESTAMP and old_timestamp != 0:
         save(True)
+        CUR_TIMESTAMP = _CUR_TIMESTAMP
         calcTop(old_timestamp)
 
 
@@ -130,7 +132,6 @@ def save(join: bool = False):
 
     if join:
         t.join()
-        print("Save finished sync")
 
 
 def _save(tags: dict, hashtags: dict):
