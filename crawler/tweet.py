@@ -1,11 +1,12 @@
 import emoji
-
+import string
 
 class Tweet():
     def __init__(self, text: str):
         self.text = text.lower()
-        self.tags = self.find("@", forbidden="#")
         self.hashtags = self.find("#", forbidden="@")
+        self.cleanTag()
+        self.tags = self.find("@", forbidden="#")
 
     def find(self, prefix, forbidden):
         ret = []
@@ -29,3 +30,13 @@ class Tweet():
 
     def remove_emojis(self, s):
         return ''.join(c for c in s if c not in emoji.UNICODE_EMOJI['en'])
+
+    def cleanTag(self):
+        allowed = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + ["_", "@", " "]
+
+        newtext = ""
+        for letter in self.text:
+            if letter in allowed:
+                newtext += letter
+
+        self.text = newtext

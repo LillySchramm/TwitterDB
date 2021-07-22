@@ -39,9 +39,6 @@ def connect_to_endpoint():
     url = create_url()
     headers = create_headers(secret.TWITTER_KEY)
 
-    # checkDate()
-    # updateCache()
-
     schedule.every(25).minutes.do(save)
     schedule.every().second.do(updateTimestamp)
 
@@ -75,7 +72,9 @@ def handleTweet(text: str):
 
     try:
 
-        t = Tweet(clean(text, ["\n", "\t", ".", ",", "(", ")", "{", "}", "_", "-", "+"]))
+        t = Tweet(
+            clean(text, ["\n", "\t", ".", ",", "(", ")", "{", "}", "-", "+", ":", "/", "\\", "'", "\"", "!", "?", "=",
+                         "…"]))
 
         TOTAL_TWEETS += 1
         if text.startswith("RT"):
@@ -110,9 +109,11 @@ def updateTimestamp():
     _CUR_TIMESTAMP = int(datetime.datetime(year=now.year, month=now.month, day=now.day, hour=now.hour).timestamp())
 
     if old_timestamp != _CUR_TIMESTAMP and old_timestamp != 0:
+
         save(True)
         CUR_TIMESTAMP = _CUR_TIMESTAMP
         calcTop(old_timestamp)
+
 
 
 # Database handling
@@ -132,6 +133,7 @@ def save(join: bool = False):
 
     if join:
         t.join()
+        print("Save finished sync")
 
 
 def _save(tags: dict, hashtags: dict):
@@ -140,6 +142,8 @@ def _save(tags: dict, hashtags: dict):
     print("Saving.")
 
     col = DB["tags"]
+
+    uniqueTags = col.count()
 
     print("Saving " + str(len(tags)) + " tags.")
     for tag in tags.keys():
@@ -168,6 +172,8 @@ def _save(tags: dict, hashtags: dict):
 
     col = DB["hashtags"]
 
+    uniqueHashTags = col.count()
+
     print("Saving " + str(len(hashtags)) + " hashtags.")
     for hashtag in hashtags.keys():
         count = hashtags[hashtag]
@@ -194,12 +200,14 @@ def _save(tags: dict, hashtags: dict):
                 col.update_one({"name": hashtag}, {"$set": doc}, upsert=True)
 
     col = DB["totals"]
-    col.update_one({"id": 0}, {"$set": {
-        "id": 0,
+    col.update_one({"timestamp": CUR_TIMESTAMP}, {"$set": {
+        "timestamp": CUR_TIMESTAMP,
         "count_retweets": TOTAL_RETWEETS,
         "count_tweets": TOTAL_TWEETS,
         "count_tags": TOTAL_TAGS,
-        "count_hashtags": TOTAL_HASHTAGS
+        "count_hashtags": TOTAL_HASHTAGS,
+        "unique_tags": uniqueTags,
+        "unique_hashtags": uniqueHashTags
     }}, upsert=True)
 
     print("Done. Took " + str(datetime.datetime.now().timestamp() - start) + " seconds.")
@@ -210,7 +218,9 @@ def loadTotals(db: Database):
 
     col = db["totals"]
 
-    raw = col.find_one({"id": 0})
+    raw = col.find().sort("timestamp", -1).limit(1)
+
+    raw = raw[0]
 
     TOTAL_TWEETS = raw["count_tweets"]
     TOTAL_RETWEETS = raw["count_retweets"]
@@ -257,5 +267,6 @@ if __name__ == "__main__":
     DB = mongoClient["TwitterDB"]
 
     loadTotals(DB)
+    save(True)
 
     connect_to_endpoint()
