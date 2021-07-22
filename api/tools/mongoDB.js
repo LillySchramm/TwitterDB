@@ -67,20 +67,26 @@ async function getNewestTop(){
     })    
 }
 
-async function getStats(){
+async function getStats(timeline){
     return new Promise(async (resolve, reject) => {
         var ret;   
 
         const collection = client.db("TwitterDB").collection("totals");
 
         const query = {  };    
+        
+        let limit = timeline ? 999999 : 1
+
         const options = {
             projection: { _id: 0, id: 0 },
             sort: {_id : -1},
-            limit: 1
+            limit: limit
         };
 
-        ret = await collection.findOne(query, options)
+        ret = 0
+
+        if(!timeline) ret = await collection.findOne(query, options)         
+        else ret = await collection.find(query, options).toArray()
 
         resolve(ret)                  
     })    
