@@ -1,0 +1,37 @@
+/* https://coolors.co/1da1f2-6369d1-f9b9f2-141414-292929 */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+:root{
+    --main-bg-color: 20,20,20;
+    --sec-bg-color: 41,41,41;
+
+    --main-blue: 29,161,242;
+    --sec-blue: 99,105,209;
+
+    --main-pink: 249,185,242;
+
+    --def-transition: linear .15s;
+}
+
+* {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(var(--main-bg-color));
+    color: #fff;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; 
+}

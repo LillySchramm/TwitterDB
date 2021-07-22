@@ -1,0 +1,10 @@
+<app-main-banner></app-main-banner>
+
+<h2>The currently most used Tags & Hashtags</h2>
+<div class="toplists">
+    <app-main-top-table type="tag" [num]="cur_table_items"></app-main-top-table>
+    <app-main-top-table type="hashtag" [num]="cur_table_items"></app-main-top-table>
+</div>
+
+<app-main-top-top-table-button *ngIf="cur_table_items != 100" content="load more" text_size="4vh" (clickEvent)="onTopMore()"></app-main-top-top-table-button>
+

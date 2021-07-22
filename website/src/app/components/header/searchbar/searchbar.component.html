@@ -1,0 +1,16 @@
+<div class="form">
+    <form>
+        <div class="input">
+            <div class="autocomplete">
+                <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 eps" placeholder="Search for an tag or hashtag..." list="browsers" autocomplete="off" required />
+            
+                <div class="autocomplete-items" *ngIf="searchbar_active">
+                    <div *ngFor="let x of autocomplete_items">{{x}}</div>
+                </div>
+            </div>            
+            <div >
+                 <input type="button" id="button" name="submit" value="Search" class="btn btn-lg rounded-0 eps" />
+            </div>
+        </div>
+    </form>
+</div>

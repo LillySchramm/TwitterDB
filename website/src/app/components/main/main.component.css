@@ -1,0 +1,14 @@
+.toplists{
+    margin-top: 2vh;
+
+    display: flex;
+    justify-content: space-around;
+    
+    flex-wrap: wrap;
+}
+
+h2{
+    margin-top: 2.5vh;
+    font-size: 5vh;
+    text-align: center;
+}

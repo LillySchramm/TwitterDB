@@ -1,0 +1,87 @@
+div.form{
+    width: 100%;
+}
+
+div.input{
+    margin-top: 1vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    font-size: 2.2vh;
+
+    text-transform: uppercase;
+    letter-spacing: .1em;
+
+    border: none;
+    border-left: solid .4vw rgb(var(--main-blue));
+
+    background: rgb(var(--sec-bg-color));
+
+    cursor: pointer;
+    transition: var(--def-transition);
+}
+
+input#button{
+    padding: 1vh;
+}
+
+input#button:hover{
+    background: rgb(var(--main-blue));
+}
+
+input#search{
+    padding: 1vh;    
+    height: 100%;
+    width: calc(100% - .8vw);
+    border-left: solid .4vw rgb(var(--main-blue));
+}
+
+input#search:hover{
+    background: rgba(var(--main-blue), 0.521);
+    color: white;    
+}
+
+input#search:focus{
+    background: rgb(var(--main-blue));
+    color: white;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+  
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-left: .4vw solid rgb(var(--main-pink)); 
+
+    color: #000;    
+    font-size: 2vh;
+    line-height: 1vh;
+
+    margin-left: 1vh;
+}  
+
+.autocomplete-items div:hover {
+    background-color: rgb(194, 194, 194); 
+}  
+
+.autocomplete {
+    padding: 1vh;
+    width: 30vw;
+    position: relative;
+    display: inline-block;
+}

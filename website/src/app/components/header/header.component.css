@@ -1,0 +1,43 @@
+h1 {
+    font-size: 7vh;
+    color: rgb(var(--main-blue));
+    justify-self: left;
+
+    letter-spacing: 0.05em;
+}
+
+h1 span {
+    color: rgb(var(--main-blue));
+}
+
+div.links { 
+    font-size: 2vh;
+    text-align: center;    
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons * {
+    margin-right: 1vw;
+}
+
+div.links span:hover{
+    background-color: rgb(var(--main-blue));
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    line-height: 7vh;
+
+    flex-wrap: wrap;
+
+    margin-top: 2vh;
+    margin-left: 2vh;
+}

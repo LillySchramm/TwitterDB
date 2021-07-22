@@ -1,0 +1,32 @@
+td.name{
+    color: rgb(var(--main-blue));
+}
+
+td {
+    padding: 1vh;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    font-size: 1.7vh;
+}
+
+.row_1{    
+    background-color: rgb(var(--sec-bg-color));
+}
+
+.row_1.name:hover{
+    cursor: pointer;
+    color: #fff;
+}
+
+.row_2.name:hover{
+    cursor: pointer;
+    color: #fff;
+}
+
+table{
+    border-collapse:collapse;    
+}
+
+th{
+    font-weight: 200;
+}

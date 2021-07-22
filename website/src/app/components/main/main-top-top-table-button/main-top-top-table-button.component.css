@@ -1,0 +1,29 @@
+div.container{
+    display: flex;
+    justify-content: center;    
+}
+
+button {
+    border: none;    
+    border-left: .4vw solid rgb(var(--main-blue));
+    padding: .4vw;
+    padding-left: 1vw;
+
+    margin-right: 1vw;
+
+    text-transform: uppercase;
+    letter-spacing: .1em;
+
+    transition: var(--def-transition);
+}
+
+button:hover{
+    background-color: rgb(var(--main-blue));
+    cursor: pointer;
+}
+
+button:active{
+    transition: .005s linear;
+    background-color: rgba(var(--main-pink), .1);
+    border-left: .4vw solid rgb(var(--main-pink));
+}

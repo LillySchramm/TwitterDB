@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="content">
+        <p>
+            We are currently storing the history of over <span>{{ stats.unique_tags }}</span> unique Tags and <span>{{ stats.unique_hashtags }}</span>  unique Hashtags.
+            Our script is running since <span>{{genTimeDifference()}}</span>. It processed <span>{{ stats.count_tweets }}</span> Tweets during this time.
+        </p>
+        <br>
+        <p>
+            <span>{{percent_retweets}}%</span> of all tweets published to Twitter are ReTweets. The average Tweet contains <span>{{avg_tags}}</span> Tags and <span>{{avg_hashtags}}</span> Hashtags.
+        </p>
+    </div>
+</div>
+ 
