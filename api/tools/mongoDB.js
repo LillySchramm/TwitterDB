@@ -92,4 +92,35 @@ async function getStats(timeline){
     })    
 }
 
-module.exports = {getData, getTop, getNewestTop, getStats}
+async function getRecommendations(search){
+    return new Promise(async (resolve, reject) => {
+
+        const collectionTags = client.db("TwitterDB").collection("tags");
+        const collectionHashtags = client.db("TwitterDB").collection("hashtags");
+
+        var options = {
+            projection: { _id: 0, timeline: 0 },
+            sort: {"timeline.count": -1},
+            limit: 5
+        };
+
+        var query = { name : new RegExp("^" + search)};
+        if(search.startsWith("@")){          
+            options.limit = 10
+            resolve(await collectionTags.find(query, options).toArray())
+        }else if(search.startsWith("#")){
+            options.limit = 10
+            resolve(await collectionHashtags.find(query, options).toArray())
+        }else{
+            query = { name : new RegExp("^@" + search)};    
+            var ret = await collectionTags.find(query, options).toArray()    
+            query = { name : new RegExp("^#" + search)};        
+    
+            ret = ret.concat(await collectionHashtags.find(query, options).toArray()).sort()
+    
+            resolve(ret)         
+        }         
+    })    
+}
+
+module.exports = {getData, getTop, getNewestTop, getStats, getRecommendations}
