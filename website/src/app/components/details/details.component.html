@@ -1,1 +1,6 @@
-<p>details works!</p>
+<article>
+    <h2>The History Of <span>{{(type == "tag" ? "@"  : "#") + name}}</span></h2>
+    <div echarts [options]="options" [merge]="mergeOptions" (chartInit)="onChartInit($event)" class="chart"></div>
+
+</article>
+  

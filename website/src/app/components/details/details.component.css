@@ -1,0 +1,24 @@
+article{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+}
+
+h2 {
+    font-size: 7vh;
+    font-weight: 300;
+
+    white-space: none;
+    word-break: break-all;
+}
+
+h2 span{
+    color: rgb(var(--main-blue));    
+    font-weight: 600;
+}
+
+.chart{
+    height: 55vh;
+    width: 100%;
+}

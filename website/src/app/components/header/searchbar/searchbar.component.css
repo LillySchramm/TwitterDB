@@ -56,27 +56,32 @@ input#search:focus{
     border-bottom: none;
     border-top: none;
     z-index: 99;
-    /*position the autocomplete items to be the same width as the container:*/
+
     top: 100%;
     left: 0;
     right: 0;
+
+    border-left: .4vw solid rgb(var(--main-blue)); 
+
+    background-color: rgb(var(--sec-bg-color)); 
+
+    margin-left: .4vw;
+
 }
   
 .autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff; 
-    border-left: .4vw solid rgb(var(--main-pink)); 
+    padding: .75vh;
+    cursor: pointer;    
 
-    color: #000;    
+    background-color: rgb(var(--sec-bg-color)); 
+    color: rgb(var(--main-blue));    
     font-size: 2vh;
-    line-height: 1vh;
-
-    margin-left: 1vh;
+    line-height: 1vh; 
 }  
 
 .autocomplete-items div:hover {
-    background-color: rgb(194, 194, 194); 
+    background-color: rgb(var(--main-blue)); 
+    color: #fff;
 }  
 
 .autocomplete {

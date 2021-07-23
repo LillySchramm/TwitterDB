@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
+import { FormsModule } from '@angular/forms';
+import { NgxEchartsModule } from 'ngx-echarts';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +14,7 @@ import { MainBannerComponent } from './components/main/main-banner/main-banner.c
 import { MainTopTableComponent } from './components/main/main-top-table/main-top-table.component';
 import { MainTopTopTableButtonComponent } from './components/main/main-top-top-table-button/main-top-top-table-button.component';
 import { DetailsComponent } from './components/details/details.component';
+
 
 @NgModule({
   declarations: [
@@ -24,11 +28,17 @@ import { DetailsComponent } from './components/details/details.component';
     DetailsComponent
   ],
   imports: [
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }

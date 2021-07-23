@@ -2,14 +2,21 @@
     <form>
         <div class="input">
             <div class="autocomplete">
-                <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 eps" placeholder="Search for an tag or hashtag..." list="browsers" autocomplete="off" required />
+                <input type="text" name="search" 
+                id="search" 
+                placeholder="Search for an tag or hashtag..." 
+                autocomplete="off" 
+                [(ngModel)]="search"      
+                [value]="search"
+                (ngModelChange)="onSearchChange()"
+                required />
             
                 <div class="autocomplete-items" *ngIf="searchbar_active">
-                    <div *ngFor="let x of autocomplete_items">{{x}}</div>
+                    <div *ngFor="let x of autocomplete_items" (click)="redirect(x.name)">{{x.name}}</div>
                 </div>
             </div>            
-            <div >
-                 <input type="button" id="button" name="submit" value="Search" class="btn btn-lg rounded-0 eps" />
+            <div>
+                 <input type="button" id="button" name="submit" value="Search"/>
             </div>
         </div>
     </form>
