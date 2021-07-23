@@ -1,6 +1,8 @@
 # This script is used to migrate the old data from an SQL server to the new MongoDB infrastructure.
 from datetime import datetime, timedelta
-
+import string
+import emoji
+import tweet
 import pymongo
 import pymysql as MySQLdb
 import secret
@@ -12,11 +14,35 @@ def doesTableExist(table_name):
         "SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = '" + table_name + "'")
     lst = MSQL_CURSOR.fetchall()
 
-
     if not (lst == [] or lst == ()):
         return True
 
     return False
+
+
+def clean(text, forbidden):
+    text = remove_emojis(text)
+
+    for x in forbidden:
+        text = text.replace(x, " ")
+
+    return text
+
+
+def cleanTag(text):
+    allowed = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + ["_", "@", " "]
+
+    newtext = ""
+    for letter in text:
+
+        if letter in allowed:
+            newtext += letter
+
+    return newtext
+
+
+def remove_emojis(s):
+    return ''.join(c for c in s if c not in emoji.UNICODE_EMOJI['en'])
 
 
 if __name__ == '__main__':
@@ -37,7 +63,7 @@ if __name__ == '__main__':
     db = mongoClient["TwitterDB"]
 
     MAX_HOURS_BACK = 180 * 24
-    now = datetime(2021,7,20)
+    now = datetime(2021, 7, 20)
 
     tags = {}
     hashtags = {}
@@ -46,6 +72,10 @@ if __name__ == '__main__':
     c = 0
 
     for i in range(MAX_HOURS_BACK):
+
+        print(len(tags.keys()))
+        print(len(hashtags.keys()))
+
         now = now - timedelta(hours=1)
         date = str(now.year) + ":" + str(now.month) + ":" + str(now.day) + "::" + str(now.hour)
         timestamp = int(now.timestamp())
@@ -56,19 +86,28 @@ if __name__ == '__main__':
 
             for x in res:
                 name = x[1].lower()
-                count = x[3]
+                name = clean(name,
+                             ["\n", "\t", ".", ",", "(", ")", "{", "}", "-", "+", ":", "/", "\\", "'", "\"", "!", "?",
+                              "=",
+                              "…", "*", "&", "€", "$", ";", "・", "。", "．．．", "、", "⋮", " "])
 
-                if count >= 5:
+                name = tweet.Tweet(name).hashtags
 
-                    if name not in hashtags.keys():
-                        hashtags[name] = []
+                if len(name) > 0:
+                    name = name[0]
+                    count = x[3]
 
-                    hashtags[name].append(
-                        {
-                            "timestamp":timestamp,
-                            "count":count
-                        }
-                    )
+                    if count >= 5:
+
+                        if name not in hashtags.keys():
+                            hashtags[name] = []
+
+                        hashtags[name].append(
+                            {
+                                "timestamp": timestamp,
+                                "count": count
+                            }
+                        )
 
             c += 1
 
@@ -79,20 +118,29 @@ if __name__ == '__main__':
             for x in res:
 
                 name = x[1].lower()
-                count = x[3]
+                name = clean(name,
+                             ["\n", "\t", ".", ",", "(", ")", "{", "}", "-", "+", ":", "/", "\\", "'", "\"", "!", "?",
+                              "=",
+                              "…", "*", "&", "€", "$", ";", "・", "。", "．．．", "、", "⋮", " "])
+                name = cleanTag(name)
 
-                if count >= 5:
+                name = tweet.Tweet(name).tags
 
-                    if name not in tags.keys():
-                        tags[name] = []
+                if len(name) > 0:
+                    name = name[0]
+                    count = x[3]
 
-                    tags[name].append(
-                        {
-                            "timestamp":timestamp,
-                            "count":count
-                        }
-                    )
+                    if count >= 5:
 
+                        if name not in tags.keys():
+                            tags[name] = []
+
+                        tags[name].append(
+                            {
+                                "timestamp": timestamp,
+                                "count": count
+                            }
+                        )
             c += 1
 
         print(date)
@@ -104,8 +152,8 @@ if __name__ == '__main__':
     for i in hashtags.keys():
         docs.append(
             {
-                "name":i,
-                "timeline":hashtags[i]
+                "name": i,
+                "timeline": hashtags[i]
             }
         )
 
@@ -118,8 +166,8 @@ if __name__ == '__main__':
     for i in tags.keys():
         docs.append(
             {
-                "name":i,
-                "timeline":tags[i]
+                "name": i,
+                "timeline": tags[i]
             }
         )
 
@@ -127,4 +175,3 @@ if __name__ == '__main__':
     col.insert_many(docs)
 
     print("Finished migration.")
-

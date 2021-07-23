@@ -6,7 +6,7 @@ import requests
 import json
 import schedule
 import datetime
-import time
+
 from tweet import Tweet
 from threading import Thread
 
@@ -73,8 +73,8 @@ def handleTweet(text: str):
     try:
 
         t = Tweet(
-            clean(text, ["\n", "\t", ".", ",", "(", ")", "{", "}", "-", "+", ":", "/", "\\", "'", "\"", "!", "?", "=",
-                         "…"]))
+            clean(text, ["\n", "\t", ".", ",", "(", ")", "{", "}", "-", "+", ":", "/", "\\", "'", "\"", "!", "?",
+                         "=","…", "*", "&", "€", "$", ";", "・", "。", "．．．", "、", "⋮", " ", " "]))
 
         TOTAL_TWEETS += 1
         if text.startswith("RT"):
@@ -109,11 +109,9 @@ def updateTimestamp():
     _CUR_TIMESTAMP = int(datetime.datetime(year=now.year, month=now.month, day=now.day, hour=now.hour).timestamp())
 
     if old_timestamp != _CUR_TIMESTAMP and old_timestamp != 0:
-
         save(True)
         CUR_TIMESTAMP = _CUR_TIMESTAMP
         calcTop(old_timestamp)
-
 
 
 # Database handling

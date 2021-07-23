@@ -12,6 +12,9 @@ class Tweet():
         ret = []
         _text = self.text
         _text = _text.replace(forbidden, " ")
+        _text = _text.replace("　", "")
+        _text = _text.replace("！", "")
+
 
         if not _text.startswith("RT"):
 
