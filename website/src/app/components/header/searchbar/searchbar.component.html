@@ -13,7 +13,7 @@
                 (keyup.arrowdown)="move_highlight(1)"
                 required />
             
-                <div class="autocomplete-items" *ngIf="searchbar_active" (mouseleave)="remove_highlight()">
+                <div class="autocomplete-items" *ngIf="searchbar_active || error != ''" (mouseleave)="remove_highlight()">
                     <div class="error" *ngIf="error != ''">{{error}}</div>
                     <div *ngFor="let x of autocomplete_items; index as i"
                         (click)="redirect(x.name)"
@@ -23,7 +23,7 @@
                 </div>
             </div>            
             <div>
-                 <input type="button" id="button" name="submit" value="Search"/>
+                 <input type="button" id="button" name="submit" value="Search" (click)="handleSearchCommit()"/>
             </div>
         </div>
     </form>

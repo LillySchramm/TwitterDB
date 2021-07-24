@@ -138,4 +138,8 @@ export class DetailsComponent implements OnInit {
     this.echartsInstance = ec;
   }
 
+  onSubjectClicked() : void {
+    window.open("https://twitter.com/search?q=" + (this.type == 'tag' ? '@'  : '#') + this.name, '_blank')
+  }
+
 }

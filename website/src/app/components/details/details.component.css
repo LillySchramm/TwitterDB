@@ -11,6 +11,8 @@ h2 {
 
     white-space: none;
     word-break: break-all;
+
+    text-align: center;
 }
 
 h2 span{

@@ -1,5 +1,5 @@
 <article>
-    <h2>The History Of <span>{{(type == "tag" ? "@"  : "#") + name}}</span></h2>
+    <h2>The History Of <br> <span><app-main-top-top-table-button [content]="(type == 'tag' ? '@'  : '#') + name" (clickEvent)="onSubjectClicked()"></app-main-top-top-table-button></span></h2>
     <div echarts [options]="options" [merge]="mergeOptions" (chartInit)="onChartInit($event)" class="chart"></div>
 
 </article>
