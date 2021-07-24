@@ -9,10 +9,17 @@
                 [(ngModel)]="search"      
                 [value]="search"
                 (ngModelChange)="onSearchChange()"
+                (keyup.arrowup)="move_highlight(-1)"
+                (keyup.arrowdown)="move_highlight(1)"
                 required />
             
-                <div class="autocomplete-items" *ngIf="searchbar_active">
-                    <div *ngFor="let x of autocomplete_items" (click)="redirect(x.name)">{{x.name}}</div>
+                <div class="autocomplete-items" *ngIf="searchbar_active" (mouseleave)="remove_highlight()">
+                    <div class="error" *ngIf="error != ''">{{error}}</div>
+                    <div *ngFor="let x of autocomplete_items; index as i"
+                        (click)="redirect(x.name)"
+                        [ngClass]="{'hovered': cur_selected === i}"
+                        (mouseenter)="set_highlight(i)"                        
+                    >{{x.name}}</div>
                 </div>
             </div>            
             <div>
