@@ -24,15 +24,29 @@ export class DetailsComponent implements OnInit {
   items : TimelineDisplayItem[] = []
 
   options : EChartsOption = {
+    feature: {
+      dataZoom: {
+          yAxisIndex: 'none',
+      },
+      restore: {},
+      saveAsImage: {}
+    },
     tooltip : {
       show: true,
-      trigger: "axis"
+      trigger: "axis",
+      backgroundColor:"#141414",
+      borderColor: "#1da1f2",
+      textStyle: {
+        color: "#fff",
+        fontFamily: "Poppins"
+      }      
     },xAxis: {
       type: 'category',
       data: [],
+      boundaryGap: false
     },
     yAxis: {
-      type: 'value',
+      type: 'value'
     },
     series: [
       {
@@ -40,9 +54,15 @@ export class DetailsComponent implements OnInit {
         type: 'line',
         color: "#1da1f2"
       },
-    ],
-
-    
+    ],    
+    dataZoom: [{
+      type: 'inside',
+      start: 0,
+      end: 100,         
+    }, {
+      start: 0,
+      end: 100,
+    }]   
   };
 
   constructor(private route: ActivatedRoute, private router:Router, private api: APIService) {
@@ -73,15 +93,23 @@ export class DetailsComponent implements OnInit {
     }
 
     this.api.getTimeline(this.type, this.name).subscribe((ret) => {
+      var dayNames : Array<string> = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
       this.items = ret;      
 
       this.data_y = []
       this.data_x = []
 
       ret.forEach((i) => {
-        this.data_x.push(i.timestamp.toUTCString())
+        this.data_x.push(dayNames[i.timestamp.getUTCDay()] + " " + i.timestamp.toLocaleDateString() + " " + i.timestamp.toLocaleTimeString().replace(/=*:.*/, "") + "h")
         this.data_y.push(i.count)        
       })     
+
+      // This sets the inital dataZoom. Intended behavior is that it always defaults to showing the last 30 days, or everything if smaller.
+      let start = ((this.data_x.length - 24 * 30) / this.data_x.length) * 100
+      // From a technical point of view this is unnessesary because ECharts will interprete negative values as 0. But I have a bad feeling that this would break something at some 
+      // point in time.  
+      start = Math.max(0, start)      
 
       this.mergeOptions = {
         xAxis: {
@@ -93,7 +121,15 @@ export class DetailsComponent implements OnInit {
             data: this.data_y,
             type: 'line',
           },
-        ]
+        ],
+        dataZoom: [{
+          type: 'inside',
+          start: start,
+          end: 100,          
+        }, {
+          start: start,
+          end: 100
+        }]
       }
     })    
   }
