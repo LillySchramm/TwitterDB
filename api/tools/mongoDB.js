@@ -26,8 +26,10 @@ async function getData(name){
 
         ret = await collection.findOne(query, options)
 
-        resolve(ret)      
-            
+        // Remove WIP data
+        if(ret.timeline[0].timestamp == getCurrentDate()) ret.timeline.shift()
+
+        resolve(ret)             
     })    
 }
 
@@ -121,6 +123,16 @@ async function getRecommendations(search){
             resolve(ret)         
         }         
     })    
+}
+
+function getCurrentDate() {
+    let date = new Date()
+
+    date.setMilliseconds(0)
+    date.setSeconds(0)
+    date.setMinutes(0)
+
+    return Math.floor(date.getTime()/1000)
 }
 
 module.exports = {getData, getTop, getNewestTop, getStats, getRecommendations}

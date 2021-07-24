@@ -105,7 +105,7 @@ export class APIService {
       if(!APIService.TimelineCache.has(type + name)){       
         this.apiGetItem(type, name).subscribe(x => {
 
-          let items : TimelineItem[] = x.timeline
+          let items : TimelineItem[] = x.timeline         
           
           let timeline : TimelineDisplayItem[] = []
           let current_time = this.getCurrentDate() - 3600
