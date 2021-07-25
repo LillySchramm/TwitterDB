@@ -1,0 +1,15 @@
+article{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+article div{
+    width: 60%;
+}
+
+h2{
+    color: rgb(var(--main-blue));
+    font-size: 10vh;
+    font-weight: 400;
+}

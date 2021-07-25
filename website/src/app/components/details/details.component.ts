@@ -74,7 +74,7 @@ export class DetailsComponent implements OnInit {
       {
         data: [],
         type: 'line',
-        color: "#1da1f2",
+        color: "#1da1f3",
         name: "Count",
         symbol: "circle"
       },

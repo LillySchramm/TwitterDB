@@ -13,10 +13,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  redirectToMain() : void {
+  redirectToRoute(path : Array<string>) : void {
+    this.router.navigate(path)
+  }
 
-    this.router.navigate([""])
-
+  openInNewTab(url : string){
+    window.open(url, '_blank')
   }
 
 }

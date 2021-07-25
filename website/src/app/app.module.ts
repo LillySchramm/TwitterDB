@@ -15,6 +15,8 @@ import { MainTopTableComponent } from './components/main/main-top-table/main-top
 import { MainTopTopTableButtonComponent } from './components/main/main-top-top-table-button/main-top-top-table-button.component';
 import { DetailsComponent } from './components/details/details.component';
 import { QAComponent } from './components/qa/qa.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ApiSiteComponent } from './components/api-site/api-site.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { QAComponent } from './components/qa/qa.component';
     MainTopTableComponent,
     MainTopTopTableButtonComponent,
     DetailsComponent,
-    QAComponent
+    QAComponent,
+    ContactComponent,
+    ApiSiteComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({

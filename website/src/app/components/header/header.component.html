@@ -1,12 +1,12 @@
 <header class="noselect">
-    <h1 (click)="redirectToMain()">Twitter<span>DB</span></h1>
+    <h1 (click)="redirectToRoute([''])">Twitter<span>DB</span></h1>
 
     <app-searchbar></app-searchbar>
 
     <div class="buttons">
         <app-main-top-top-table-button content="How it works"   text_size="2vh"></app-main-top-top-table-button> 
-        <app-main-top-top-table-button content="GitHub"         text_size="2vh"></app-main-top-top-table-button> 
-        <app-main-top-top-table-button content="API"            text_size="2vh"></app-main-top-top-table-button>
-        <app-main-top-top-table-button content="Contact"        text_size="2vh"></app-main-top-top-table-button>
+        <app-main-top-top-table-button content="GitHub"         text_size="2vh" (clickEvent)="openInNewTab('https://github.com/EliasSchramm/TwitterDB')"></app-main-top-top-table-button> 
+        <app-main-top-top-table-button content="API"            text_size="2vh" (clickEvent)="redirectToRoute(['api'])"></app-main-top-top-table-button>
+        <app-main-top-top-table-button content="Contact"        text_size="2vh" (clickEvent)="redirectToRoute(['contact'])"></app-main-top-top-table-button>
     </div>
 </header>

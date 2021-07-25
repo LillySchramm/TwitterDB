@@ -1,0 +1,27 @@
+.emoji{
+    color: rgb(var(--main-blue));
+}
+
+article {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+article div{    
+    border-left: .4vw solid rgb(var(--main-blue));
+    padding: 10vh;
+    
+    text-align: center;
+    font-size: 4vh;
+
+    margin-top: 17vh;
+}
+
+.uwu {
+    color: #e100ff;
+    font-weight: 800;
+    font-size: 3vh;
+    margin-top: 20vh;
+}
