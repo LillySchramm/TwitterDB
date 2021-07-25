@@ -25,11 +25,19 @@ async function getData(name){
         };
 
         ret = await collection.findOne(query, options)
+        
+        // Error handling
+        if(ret == undefined){ 
+            resolve ({
+                name:name,
+                timeline:[]
+            })
+        }else{
+            // Remove WIP data
+            if(ret.timeline[0].timestamp == getCurrentDate()) ret.timeline.shift()
 
-        // Remove WIP data
-        if(ret.timeline[0].timestamp == getCurrentDate()) ret.timeline.shift()
-
-        resolve(ret)             
+            resolve(ret)      
+        }       
     })    
 }
 
