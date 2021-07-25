@@ -10,5 +10,7 @@ export type TimelineItem = {
 
 export type TimelineDisplayItem = {
     timestamp : Date,
-    count : number
+    count : number,
+    avg30 : number,
+    avg1: number,
 }

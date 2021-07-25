@@ -14,6 +14,7 @@ import { MainBannerComponent } from './components/main/main-banner/main-banner.c
 import { MainTopTableComponent } from './components/main/main-top-table/main-top-table.component';
 import { MainTopTopTableButtonComponent } from './components/main/main-top-top-table-button/main-top-top-table-button.component';
 import { DetailsComponent } from './components/details/details.component';
+import { QAComponent } from './components/qa/qa.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { DetailsComponent } from './components/details/details.component';
     MainBannerComponent,
     MainTopTableComponent,
     MainTopTopTableButtonComponent,
-    DetailsComponent
+    DetailsComponent,
+    QAComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({

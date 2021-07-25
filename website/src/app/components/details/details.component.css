@@ -15,12 +15,35 @@ h2 {
     text-align: center;
 }
 
-h2 span{
-    color: rgb(var(--main-blue));    
-    font-weight: 600;
+article.error{
+    margin-left: 10%;
+    width: 80%;    
+}
+
+h2.error{
+    color: #7A306C;
+    font-weight: 500;
+    margin-bottom: 5vh;
+}
+
+h2.error span{
+    color: rgb(var(--main-blue));
+    font-weight: 500;
 }
 
 .chart{
+    margin-top: 5vh;
     height: 60vh;
     width: 100%;
+}
+
+.rec {
+    margin-top: 5vh;
+    display: flex;    
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.btn{
+    margin-top: 2vh;
 }

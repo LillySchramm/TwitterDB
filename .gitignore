@@ -4,3 +4,4 @@ crawler/.idea/
 api/tools/secret.js
 api/node_modules/
 *.pyc
+crawler/cleanup.py

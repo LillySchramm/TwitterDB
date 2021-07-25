@@ -1,6 +1,20 @@
-<article>
+<article *ngIf="!error">
     <h2>The History Of <br> <span><app-main-top-top-table-button [content]="(type == 'tag' ? '@'  : '#') + name" (clickEvent)="onSubjectClicked()"></app-main-top-top-table-button></span></h2>
     <div echarts [options]="options" [merge]="mergeOptions" (chartInit)="onChartInit($event)" class="chart"></div>
-
 </article>
-  
+<article *ngIf="error" class="error">
+    <h2 class="error">No Records Of <span>{{(type == 'tag' ? '@'  : '#') + name}}</span> Found</h2>
+    <app-qa 
+    question=
+    "
+        But I am sure that this exists!
+    "
+    [answer]="error_answer"
+    ></app-qa>
+    <div class="rec">        
+        <app-main-top-top-table-button class="btn" *ngFor="let x of error_recommendations" [content]="x.name" text_size="2.5vh" (clickEvent)="error_rec_click(x.name)"></app-main-top-top-table-button>
+    </div>
+    
+</article>
+
+    
