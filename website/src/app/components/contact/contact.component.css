@@ -23,5 +23,13 @@ article div{
     color: #e100ff;
     font-weight: 800;
     font-size: 3vh;
-    margin-top: 20vh;
+    margin-top: 6vh;
+}
+
+.disclaimer{
+    margin-top: 1vh;
+    font-size: 2vh;
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
 }
