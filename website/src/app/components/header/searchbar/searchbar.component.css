@@ -38,7 +38,7 @@ input#search{
     padding: 1vh;    
     height: 100%;
     width: calc(100% - .8vw);
-    border-left: solid .4vw rgb(var(--main-blue));
+    border-left: solid .4vw rgb(var(--main-blue));    
 }
 
 input#search:hover{
@@ -48,7 +48,9 @@ input#search:hover{
 
 input#search:focus{
     background: rgb(var(--main-blue));
-    color: white;
+    color: white;    
+    outline-width: 0;
+    
 }
 
 .autocomplete-items {
