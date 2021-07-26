@@ -12,4 +12,7 @@ export class ApiSiteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  exampleRequest(endpoint : string) : void {
+    window.open("https://api.twitterdb.com" + endpoint, '_blank')
+  }
 }

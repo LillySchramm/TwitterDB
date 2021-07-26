@@ -4,7 +4,7 @@ article{
     align-items: center;
 }
 
-article div{
+article > div{
     width: 60%;
 }
 
@@ -12,4 +12,29 @@ h2{
     color: rgb(var(--main-blue));
     font-size: 10vh;
     font-weight: 400;
+}
+
+.btn {
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+}
+
+.blue{
+    color: rgb(var(--main-blue));
+}
+
+div.code p{
+    background: rgb(var(--sec-bg-color));
+    margin-top: 5vh;
+    padding: 2vh;
+
+    font-size: 1.8vh;
+}
+
+div.code span{
+    background: rgb(var(--sec-bg-color));
+}
+
+.base {
+    color: #51CB20;
 }

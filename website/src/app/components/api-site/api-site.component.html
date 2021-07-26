@@ -1,10 +1,76 @@
 <article>
     <h2>API.TWITTERDB.COM</h2>
     <div>
-        <app-qa question="/stats" [answer]="['Returns the current crawler and database statistics.']"></app-qa>
+        <app-qa question="/stats" [answer]="['Returns the current bot and database statistics.']"></app-qa>
         <div class="code">
-            
+            <p>
+                <span class="base">timestamp</span>: The UNIX timestamp of the hour that these stats are from. <br>
+                <span class="base">count_tweets</span>: The total amount of tweets processed by the bot. <br>
+                <span class="base">count_retweets</span>: The amount of processed tweets that where ReTweets. <br>
+                <span class="base">count_tags</span>: The times a tag was found in one of the tweets. Warning: ReTweets are not seached for tags.<br>
+                <span class="base">count_hashtags</span>: The times a hashtag was found in one of the tweets. Warning: ReTweets are not seached for hashtags. <br>
+                <span class="base">unique_tags</span>: The ammount of unique tags in the database. <br>
+                <span class="base">unique_hashtags</span>: The ammount of unique hashtags in the database. <br>
+            </p>
         </div>
+        <p class="btn">
+            <app-main-top-top-table-button content="Example Request" text_size="3vh" (clickEvent)="exampleRequest('/stats')"></app-main-top-top-table-button>
+        </p>
+
+        <app-qa question="/stats/timeline" [answer]="['Returns the recored history of the bot and database statistics.']"></app-qa>
+        <div class="code">
+            <p>
+                Returns an array containing objects like in <span class="blue">/stats</span>.<br>
+                Please note that index 0 will always be the "Work In Progress" object and might change over the course of the current hour.<br>
+                Also note that we started recording the statistics history when we rewrote everything during the mirgration from <span class="blue">Twitterstats</span> to <span class="blue">TwitterDB</span>. <br>
+
+            </p>
+        </div>
+        <p class="btn">
+            <app-main-top-top-table-button content="Example Request" text_size="3vh" (clickEvent)="exampleRequest('/stats/timeline')"></app-main-top-top-table-button>
+        </p>
+
+        <app-qa question="/top" [answer]="['Returns the current hours top list.']"></app-qa>
+        <div class="code">
+            <p>
+                <span class="base">timestamp</span>: The UNIX timestamp of the hour that these stats are from. <br>
+                <span class="base">tags/hashtags</span>: Sorted array containing the top 100 of the category. Each item has two fields:<br>
+                - <span class="base">name</span>: The name of the tag/hashtag <br>
+                - <span class="base">count</span>: The amount of times the item was found during the hour
+            </p>
+        </div>
+        <p class="btn">
+            <app-main-top-top-table-button content="Example Request" text_size="3vh" (clickEvent)="exampleRequest('/top')"></app-main-top-top-table-button>
+        </p>
+
+        <app-qa question="/top/:timestamp" [answer]="['Returns the requested hours top list.']"></app-qa>
+        <div class="code">
+            <p>
+                Returns like in <span class="blue">/top</span> <br>
+                The timestamp must be in UNIX Seconds. <br>
+                Please note that we started recording the history of the top lists when we rewrote everything during the mirgration from <span class="blue">Twitterstats</span> to <span class="blue">TwitterDB</span>.
+            </p>
+        </div>
+        <p class="btn">
+            <app-main-top-top-table-button content="Example Request" text_size="3vh" (clickEvent)="exampleRequest('/top/1627297200')"></app-main-top-top-table-button>
+        </p>
+
+        <app-qa question="/get/:type/:name" [answer]="['Returns history of the requested tag/hashtag.']"></app-qa>
+        <div class="code">
+            <p>
+                <span class="base">:type</span>: "tag" or "hashtag"<br>
+                <span class="base">:name</span>: tag/hashtag without prefix. <br><br>
+                <span class="base">name</span>: The name of the requested tag/hashtag.<br>
+                <span class="base">timeline</span>: Array containing all timestamp items: <br>
+               - <span class="base">timestamp</span>: The hours UNIX timestamp. <br>
+               - <span class="base">count</span>: The amount of times the tag/hashtag was found during this hour <br><br>
+
+               Please note that we only append to the history of an tag/hashtag if it was found during the hour.
+            </p>
+        </div>
+        <p class="btn">
+            <app-main-top-top-table-button content="Example Request" text_size="3vh" (clickEvent)="exampleRequest('/get/tag/bts_twt')"></app-main-top-top-table-button>
+        </p>
     </div>
 
 </article>
