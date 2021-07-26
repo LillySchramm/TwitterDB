@@ -17,6 +17,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { QAComponent } from './components/qa/qa.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ApiSiteComponent } from './components/api-site/api-site.component';
+import { FaqSiteComponent } from './components/faq-site/faq-site.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ApiSiteComponent } from './components/api-site/api-site.component';
     DetailsComponent,
     QAComponent,
     ContactComponent,
-    ApiSiteComponent
+    ApiSiteComponent,
+    FaqSiteComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({

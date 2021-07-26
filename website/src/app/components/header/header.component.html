@@ -4,7 +4,7 @@
     <app-searchbar></app-searchbar>
 
     <div class="buttons">
-        <app-main-top-top-table-button content="How it works"   text_size="2vh"></app-main-top-top-table-button> 
+        <app-main-top-top-table-button content="How it works"   text_size="2vh" (clickEvent)="redirectToRoute(['faq'])"></app-main-top-top-table-button> 
         <app-main-top-top-table-button content="GitHub"         text_size="2vh" (clickEvent)="openInNewTab('https://github.com/EliasSchramm/TwitterDB')"></app-main-top-top-table-button> 
         <app-main-top-top-table-button content="API"            text_size="2vh" (clickEvent)="redirectToRoute(['api'])"></app-main-top-top-table-button>
         <app-main-top-top-table-button content="Contact"        text_size="2vh" (clickEvent)="redirectToRoute(['contact'])"></app-main-top-top-table-button>
