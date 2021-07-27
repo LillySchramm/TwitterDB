@@ -49,8 +49,7 @@ input#search:hover{
 input#search:focus{
     background: rgb(var(--main-blue));
     color: white;    
-    outline-width: 0;
-    
+    outline-width: 0;    
 }
 
 .autocomplete-items {

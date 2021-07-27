@@ -4,6 +4,7 @@ import { ChartView, EChartsOption } from 'echarts';
 import { Recommendation } from 'src/app/common/recommendationType';
 import { TimelineDisplayItem } from 'src/app/common/timelineType';
 import { APIService } from 'src/app/services/api.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-details',
@@ -104,7 +105,7 @@ export class DetailsComponent implements OnInit {
     }]   
   };
 
-  constructor(private route: ActivatedRoute, private router:Router, private api: APIService) {
+  constructor(private route: ActivatedRoute, private router:Router, private api: APIService, private title:Title) {
     route.url.subscribe(() => {
       this.load()
     })
@@ -117,6 +118,8 @@ export class DetailsComponent implements OnInit {
   private load() : void {
     this.name = this.route.snapshot.paramMap.get("name")!
     this.type = this.route.snapshot.paramMap.get("type")!
+
+    this.title.setTitle("TwitterDB - The history of " + (this.type == 'tag' ? '@'  : '#') + this.name)
 
     this.mergeOptions = {
       xAxis: {
