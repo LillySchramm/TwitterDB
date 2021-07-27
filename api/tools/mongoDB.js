@@ -3,6 +3,9 @@ const MongoClient = require('mongodb').MongoClient;
 var client = new MongoClient(secret.MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect()
 
+const SITEMAP_INDEX_TEMPLATE = '<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">[sitemaps]</sitemapindex>'
+const SITEMAP_INDEX_ITEM_TEMPLATE = '<sitemap><loc>[url]</loc><lastmod>[lastmod]</lastmod></sitemap>'
+
 async function getData(name){    
     return new Promise(async (resolve, reject) => {
 
@@ -133,6 +136,47 @@ async function getRecommendations(search){
     })    
 }
 
+async function getSiteMap(name){
+    return new Promise(async (resolve, reject) => {
+        var ret;   
+
+        const collection = client.db("TwitterDB").collection("sitemaps");
+        const query = { name:name };   
+        const options = {
+            projection: { _id: 0, data: 1},            
+        };
+
+        ret = await collection.findOne(query, options)
+
+        resolve(ret["data"])
+    })
+}
+
+async function getSiteMapIndex(){
+    return new Promise(async (resolve, reject) => {
+        var ret;   
+
+        const collection = client.db("TwitterDB").collection("sitemaps");
+        const query = {  };   
+        const options = {
+            projection: { _id: 0, name: 1 },
+            sort: {}
+        };
+
+        ret = await collection.find(query, options).toArray()
+
+        let temp = ""
+        const now = new Date()
+
+        for(let x of ret){
+            temp += SITEMAP_INDEX_ITEM_TEMPLATE.replace("[url]", "https://api.twitterdb.com/sitemap/" + secret.SITEMAP_URL + "/" + x["name"] + ".xml")
+            .replace('[lastmod]', now.toISOString())
+        }
+
+        resolve(SITEMAP_INDEX_TEMPLATE.replace('[sitemaps]', temp))                  
+    })    
+}
+
 function getCurrentDate() {
     let date = new Date()
 
@@ -143,4 +187,4 @@ function getCurrentDate() {
     return Math.floor(date.getTime()/1000)
 }
 
-module.exports = {getData, getTop, getNewestTop, getStats, getRecommendations}
+module.exports = {getData, getTop, getNewestTop, getStats, getRecommendations, getSiteMapIndex, getSiteMap}
