@@ -47,16 +47,19 @@ if __name__ == "__main__":
     i, j = 1, 1
 
     for x in TAGS:
-        i += 1
+        name = x["name"][1:]
 
-        temp += SITEMAP_ITEM_TEMPLATE.replace("[loc]", "https://twitterdb.com/details/tag/" + x["name"][1:])\
-            .replace("[lastmod]", str(lastmod))\
-            .replace("[imp]", str(0.8))
+        if '\\' not in ascii(name):
+            i += 1
 
-        if i % URLS_PER_SITEMAP == 0:
-            saveSitemap(temp, "t_" + str(j), col)
-            j += 1
-            temp = ""
+            temp += SITEMAP_ITEM_TEMPLATE.replace("[loc]", "https://twitterdb.com/details/tag/" + name)\
+                .replace("[lastmod]", str(lastmod))\
+                .replace("[imp]", str(0.8))
+
+            if i % URLS_PER_SITEMAP == 0:
+                saveSitemap(temp, "t_" + str(j), col)
+                j += 1
+                temp = ""
 
     saveSitemap(temp, "t_" + str(j), col)
     temp = ""
@@ -64,16 +67,19 @@ if __name__ == "__main__":
     i, j = 1, 1
 
     for x in HASHTAGS:
-        i += 1
+        name = x["name"][1:]
 
-        temp += SITEMAP_ITEM_TEMPLATE.replace("[loc]", "https://twitterdb.com/details/hashtag/" + x["name"][1:])\
-            .replace("[lastmod]", str(lastmod))\
-            .replace("[imp]", str(0.8))
+        if '\\' not in ascii(name):
+            i += 1
 
-        if i % URLS_PER_SITEMAP == 0:
-            saveSitemap(temp, "ht_" + str(j), col)
-            j += 1
-            temp = ""
+            temp += SITEMAP_ITEM_TEMPLATE.replace("[loc]", "https://twitterdb.com/details/hashtag/" + name)\
+                .replace("[lastmod]", str(lastmod))\
+                .replace("[imp]", str(0.8))
+
+            if i % URLS_PER_SITEMAP == 0:
+                saveSitemap(temp, "ht_" + str(j), col)
+                j += 1
+                temp = ""
 
     saveSitemap(temp, "ht_" + str(j), col)
 
