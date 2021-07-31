@@ -170,7 +170,7 @@ async function getSiteMapIndex(){
 
         for(let x of ret){
             temp += SITEMAP_INDEX_ITEM_TEMPLATE.replace("[url]", "https://api.twitterdb.com/sitemap/" + secret.SITEMAP_URL + "/" + x["name"] + ".xml")
-            .replace('[lastmod]', now.toISOString())
+            .replace('[lastmod]', now.toISOString().slice(0,10))
         }
 
         resolve(SITEMAP_INDEX_TEMPLATE.replace('[sitemaps]', temp))                  
