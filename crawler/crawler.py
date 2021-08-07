@@ -1,11 +1,11 @@
 from pymongo import MongoClient
 from pymongo.database import Database
 
-import secret
 import requests
 import json
 import schedule
 import datetime
+import os
 
 from tweet import Tweet
 from threading import Thread
@@ -37,7 +37,7 @@ def create_headers(bearer_token):
 
 def connect_to_endpoint():
     url = create_url()
-    headers = create_headers(secret.TWITTER_KEY)
+    headers = create_headers(os.environ['TWITTER_KEY'])
 
     schedule.every(25).minutes.do(save)
     schedule.every().second.do(updateTimestamp)
@@ -69,7 +69,7 @@ def clean(text, forbidden):
 
 def handleTweet(text: str):
     global TOTAL_TWEETS, TOTAL_RETWEETS, TOTAL_HASHTAGS, TOTAL_TAGS, DATA_HASHTAGS, DATA_TAGS
-
+    print(text)
     try:
 
         t = Tweet(
@@ -261,7 +261,7 @@ def calcTop(t: int):
 
 if __name__ == "__main__":
     mongoClient = MongoClient(
-        secret.MONGODB_URI)
+        os.environ["MONGODB_URI"])
     DB = mongoClient["TwitterDB"]
 
     loadTotals(DB)
