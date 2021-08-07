@@ -69,7 +69,7 @@ def clean(text, forbidden):
 
 def handleTweet(text: str):
     global TOTAL_TWEETS, TOTAL_RETWEETS, TOTAL_HASHTAGS, TOTAL_TAGS, DATA_HASHTAGS, DATA_TAGS
-    print(text)
+
     try:
 
         t = Tweet(
