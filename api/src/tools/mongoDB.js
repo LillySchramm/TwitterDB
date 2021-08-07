@@ -1,6 +1,5 @@
-const secret = require('./secret')
 const MongoClient = require('mongodb').MongoClient;
-var client = new MongoClient(secret.MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+var client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect()
 
 const SITEMAP_INDEX_TEMPLATE = '<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">[sitemaps]</sitemapindex>'
@@ -169,7 +168,7 @@ async function getSiteMapIndex(){
         const now = new Date()
 
         for(let x of ret){
-            temp += SITEMAP_INDEX_ITEM_TEMPLATE.replace("[url]", "https://api.twitterdb.com/sitemap/" + secret.SITEMAP_URL + "/" + x["name"] + ".xml")
+            temp += SITEMAP_INDEX_ITEM_TEMPLATE.replace("[url]", "https://api.twitterdb.com/sitemap/" + process.env.SITEMAP_URL + "/" + x["name"] + ".xml")
             .replace('[lastmod]', now.toISOString().slice(0,10))
         }
 
